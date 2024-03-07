@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Card } from '../components/Card';
 import { PlayerByTeam } from '../components/PlayerByTeam';
 
@@ -14,7 +15,7 @@ export function HomeTemplate({ title, subTitle }: HomeTemplateProps) {
       </div>
 
       <div className="mt-4">
-        <div className="grid gap-4 grid-cols-4 grid-rows-2">
+        <div className={` grid gap-4 grid-cols-4 grid-rows-2`}>
           <Card />
           <Card />
           <Card />

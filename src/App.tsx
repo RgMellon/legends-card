@@ -1,8 +1,8 @@
-// import { Home } from './screens/Home';
-import { PlayerProfile } from './screens/PlayerProfile';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
 function App() {
-  return <PlayerProfile />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

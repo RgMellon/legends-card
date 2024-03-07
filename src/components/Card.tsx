@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 export function Card() {
+  const navigate = useNavigate();
+
   return (
-    <div
+    <button
+      onClick={() => {
+        navigate('/profile/2313');
+      }}
       className="grid 
                  shadow-sm 
                  h-full 
@@ -40,6 +47,6 @@ export function Card() {
         />
         <p>Nota 8 </p>
       </div>
-    </div>
+    </button>
   );
 }
