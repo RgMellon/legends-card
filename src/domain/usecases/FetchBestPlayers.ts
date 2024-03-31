@@ -1,17 +1,15 @@
 export interface IFetchBestPlayers {
-  fetch: () => Promise<FetchBestPlayersModel>;
+  fetch: (stageId: string) => Promise<TeamData>;
 }
 
-export type FetchBestPlayersModel = TeamData;
-
-export interface Player {
+export type Player = {
   id: string;
   nickName: string;
   photo: string;
   role: string;
-}
+};
 
-interface RoleData {
+type RoleData = {
   id: string;
   rate: number;
   createdAt: string;
@@ -19,16 +17,16 @@ interface RoleData {
   stageId: string;
   playerId: string;
   player: Player;
-}
+};
 
-export interface Roles {
+export type Roles = {
   adc: RoleData;
   mid: RoleData;
   jg: RoleData;
   top: RoleData;
   sup: RoleData;
-}
+};
 
-export interface TeamData {
+export type TeamData = {
   [key: string]: RoleData;
-}
+};
