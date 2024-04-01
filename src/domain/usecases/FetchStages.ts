@@ -1,5 +1,5 @@
 export interface IFetchStages {
-  fetch: () => Promise<StageModel[]>;
+  fetch: () => Promise<StageProps>;
 }
 
 export type StageModel = {
@@ -7,4 +7,8 @@ export type StageModel = {
   slug: string;
   stageInitDate: string;
   stageEndDate: string;
+};
+
+export type StageProps = {
+  stages: StageModel[];
 };
