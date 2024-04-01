@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import { RateProps } from '../domain/usecases/RegisterRate';
 import { Button } from '../components/Button';
@@ -6,11 +6,13 @@ import { useStages } from '../hooks/useFetchStage';
 import toast from 'react-hot-toast';
 import { useModal } from '../hooks/useModal';
 import { Player } from '../domain/usecases/FetchAllPlayers';
+import { PlayerTable } from '../components/PlayerTable';
 
 type RatePlayerTemplateProps = {
   players: Player[];
   onClick: (rate: RateProps) => void;
   loadRegister?: boolean;
+  handleChangeGroupBy: (group: string) => void;
 };
 
 let currentPlayerId: string;
@@ -20,10 +22,13 @@ export function RatePlayerTemplate({
   players,
   onClick,
   loadRegister = false,
+  handleChangeGroupBy,
 }: RatePlayerTemplateProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { stages } = useStages();
   const { isOpen, handleToggle } = useModal();
+
+  const [currentWeek, setCurrentWeek] = useState(stages[stages.length - 1].id);
 
   function handlePlayerCallback(playerId: string, playerName: string) {
     currentPlayerId = playerId;
@@ -44,68 +49,66 @@ export function RatePlayerTemplate({
     });
   }
 
+  function handleSelectWeek(week: string) {
+    setCurrentWeek(week);
+  }
+
   return (
     <div className="mx-auto max-w-screen-2xl">
       <div className="shadow-sm h-full w-full rounded-md p-5 bg-purple-200 mt-4">
         <h2 className="font-bold text-lg">Nota dos jogadores</h2>
       </div>
 
-      <div className={`mt-4 ${isOpen && 'opacity-5'}  bg-purple-200`}>
+      <section className={`mt-4 ${isOpen && 'opacity-5'}  bg-purple-200`}>
         <div className="p-10">
-          <table className="table-auto w-full">
-            <thead>
-              <tr>
-                <th className="text-start">Jogador</th>
-                <th className="text-start">Posição</th>
-                <th className="text-start">Time</th>
-                <th></th>
-                <th className="text-center">Ja tem nota essa semana?</th>
-              </tr>
-            </thead>
-            <tbody>
-              {players.map((player, index) => (
-                <tr
-                  onClick={() => {
-                    handlePlayerCallback(player.id, player.nickName);
-                  }}
-                  className={`h-16 ${
-                    index % 2 == 0 && `bg-purple-100 rounded-sm`
-                  } hover:bg-yellow hover:opacity-75`}
-                >
-                  <td className="row-auto px-2">
-                    {' '}
-                    <img
-                      src={player.photo}
-                      className="object-cover inline-block w-10 h-10 rounded-full ring-1 mr-5"
-                    />{' '}
-                    {player?.nickName}
-                  </td>
-                  <td>{player.role}</td>
+          <section className="flex justify-between">
+            <div className="flex items-center mb-6">
+              <p className="mr-5">Ordenar por </p>{' '}
+              <select
+                onChange={(event) => {
+                  handleChangeGroupBy(event.target.value);
+                }}
+                id="stage"
+                name="stage"
+                className="mt-4 mb-4 rounded-md bg-transparent py-3 pl-2 pr-3 text-gray-500"
+              >
+                <option selected={true} value={'role'}>
+                  Posição
+                </option>
+                <option value={'team'}>Time</option>
+              </select>
+            </div>
 
-                  <td>
-                    {' '}
-                    <img
-                      src={player.team.logo}
-                      className="object-cover inline-block w-8 h-8 rounded-full ring-1 mr-5"
-                    />{' '}
-                    {player.team.name}
-                  </td>
-                  <td>✍🏻</td>
-                  <td className="text-center">
-                    {!!player.rates.find(
-                      (i) => i.stageId === stages[stages.length - 1].id
-                    ) ? (
-                      <span>✅</span>
-                    ) : (
-                      <span>❌</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <div className="flex items-center mb-6">
+              <p className="mr-5">Semana </p>{' '}
+              <select
+                onChange={(event) => {
+                  handleSelectWeek(event.target.value);
+                }}
+                id="stage"
+                name="stage"
+                className="mt-4 mb-4 rounded-md bg-transparent py-3 pl-2 pr-3 text-gray-500"
+              >
+                {stages.map((stage) => (
+                  <option
+                    selected={stages[stages.length - 1].id === stage.id}
+                    key={stage.id}
+                    value={stage.id}
+                  >
+                    {stage.slug}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </section>
+
+          <PlayerTable
+            stageId={currentWeek}
+            players={players}
+            handlePlayerCallback={handlePlayerCallback}
+          />
         </div>
-      </div>
+      </section>
 
       {isOpen ? (
         <>

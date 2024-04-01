@@ -4,13 +4,17 @@ import { RateProps } from '../../domain/usecases/RegisterRate';
 import { useRegisterRate } from '../../hooks/useRegisterRate';
 import toast from 'react-hot-toast';
 import { useFetchAllPlayers } from '../../hooks/useFetchAllPlayers';
+import { useState } from 'react';
 
 export function RatePlayer() {
+  const [group, setGroup] = useState('role');
+
   const { handleRegisterRate, loadRegister } = useRegisterRate();
   const { fetchAllPlayers } = useFetchAllPlayers();
-  async function getPlayerByTeams() {
+
+  async function getPlayerByTeams(group: string) {
     try {
-      const response = await fetchAllPlayers();
+      const response = await fetchAllPlayers(group);
       return response;
     } catch (err) {
       toast.error('Ops, algo de errado aconteceu ao obter os jogadores =/');
@@ -18,12 +22,16 @@ export function RatePlayer() {
   }
 
   const { data, isLoading } = useQuery(
-    'bestPlayersAndByTeam',
-    getPlayerByTeams
+    ['bestPlayersAndByTeam', { group }],
+    () => getPlayerByTeams(group)
   );
 
   function handleRate(rate: RateProps) {
     handleRegisterRate(rate);
+  }
+
+  function handleChangeGroupBy(group: string) {
+    setGroup(group);
   }
 
   return (
@@ -32,6 +40,7 @@ export function RatePlayer() {
         loadRegister={loadRegister}
         players={data!}
         onClick={handleRate}
+        handleChangeGroupBy={handleChangeGroupBy}
       />
     )
   );
