@@ -6,8 +6,10 @@ import {
 import { api } from '../../infra/http';
 
 export class FetchAllPlayers implements IFetchAllPlayers {
-  async fetch(): Promise<Player[]> {
-    const response = await api.get(`players`);
+  async fetch(group: string): Promise<Player[]> {
+    const response = await api.get(`players`, {
+      params: { group },
+    });
 
     return response.data;
   }

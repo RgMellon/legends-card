@@ -1,5 +1,5 @@
 export interface IFetchAllPlayers {
-  fetch: () => Promise<Player[]>;
+  fetch: (group: string) => Promise<Player[]>;
 }
 
 interface Rate {
