@@ -23,20 +23,20 @@ export function useHome() {
     bestPlayersByTeamData: undefined,
   });
 
-  const fetchData = async () => {
-    const resultStage = await onLoadStage();
+  const fetchData = async (currentStage: string) => {
+    if (!currentStage) {
+      const resultStage = await onLoadStage();
 
-    if (!resultStage?.stages) {
-      toast.error('Falha ao recuperar as semanas');
-      return;
+      if (!resultStage?.stages) {
+        toast.error('Falha ao recuperar as semanas');
+        return;
+      }
     }
 
     try {
-      const bestPlayersResult = await fetchBestPlayers(
-        resultStage.stages[resultStage.stages.length - 1].id
-      );
+      const bestPlayersResult = await fetchBestPlayers(currentStage);
       const bestPlayersByTeamResult = await fetchBestPlayersByTeam(
-        resultStage.stages[resultStage.stages.length - 1]?.id
+        currentStage
       );
       const bestPlayers = bestPlayersResult;
       const bestPlayersByTeamData = Object.values(

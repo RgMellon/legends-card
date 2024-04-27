@@ -78,7 +78,7 @@ export function PlayerProfile() {
                   <p className="text-md">Min {data?.minRate} </p>
 
                   <p className="text-lg bol text-yellow">
-                    Média {data?.averageRate}{' '}
+                    Média {data?.averageRate.toFixed(1)}{' '}
                   </p>
 
                   <p className="text-md">Max {data?.maxRate}</p>

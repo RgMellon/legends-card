@@ -16,7 +16,7 @@ export function Card({ id, nickName, photo, role, rate }: CardProps) {
     SUP: 'icon-position-utility',
   };
 
-return (
+  return (
     <button
       onClick={() => {
         navigate(`/profile/${id}`);

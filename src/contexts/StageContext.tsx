@@ -11,6 +11,10 @@ type StageContextDataProps = {
   stageIsLoading: boolean;
   stages: StageModel[];
   onLoadStage: () => Promise<StageProps | undefined>;
+  setSelectedStageId: (stageId: string) => void;
+  selectedStage: string;
+  handleSelectHomeStage: (stageId: string) => void;
+  selectedHomeStage: string;
 };
 
 export const StageContext = createContext<StageContextDataProps>(
@@ -20,11 +24,15 @@ export const StageContext = createContext<StageContextDataProps>(
 export function StageProvider({ children }: StageContextProviderProps) {
   const [stageIsLoading, setStageIsLoading] = useState(true);
   const [stages, setStages] = useState<StageModel[]>([]);
+  const [selectedStage, setSelectedStage] = useState('');
+  const [selectedHomeStage, setSelectedHomeStage] = useState('');
 
   async function onLoadStage() {
     try {
       setStageIsLoading(true);
       const response = await new FetchStages().fetch();
+      setSelectedHomeStage(response.stages[response.stages.length - 1].id);
+      setSelectedStage(response.stages[response.stages.length - 1].id);
       setStages(response.stages);
       return response;
     } catch (err) {
@@ -34,12 +42,24 @@ export function StageProvider({ children }: StageContextProviderProps) {
     }
   }
 
+  function setSelectedStageId(stageId: string) {
+    setSelectedStage(stageId);
+  }
+
+  function handleSelectHomeStage(stageId: string) {
+    setSelectedHomeStage(stageId);
+  }
+
   return (
     <StageContext.Provider
       value={{
         stages,
         stageIsLoading,
         onLoadStage,
+        setSelectedStageId,
+        selectedStage,
+        handleSelectHomeStage,
+        selectedHomeStage,
       }}
     >
       {children}

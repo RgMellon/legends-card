@@ -34,4 +34,5 @@ export interface Player {
   teamId: string;
   rates: Rate[];
   team: Team;
+  hasRateInThisWeek?: boolean;
 }
