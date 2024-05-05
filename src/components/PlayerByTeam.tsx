@@ -1,4 +1,4 @@
-import { Player } from '../domain/usecases/FetchBestPlayersByTeam';
+import { Player } from '../domain/dtos/response/Player';
 
 type PlayerByTeamProps = {
   teamName: string;
@@ -41,7 +41,7 @@ export function PlayerByTeam({
               <p className="ml-2">{player.nickName}</p>
             </div>
 
-            <p>{player.rate}</p>
+            <p>{player?.rate}</p>
           </li>
         ))}
       </ul>

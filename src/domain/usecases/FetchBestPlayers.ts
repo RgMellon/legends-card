@@ -1,13 +1,8 @@
+import { Player } from '../dtos/response/Player';
+
 export interface IFetchBestPlayers {
   fetch: (stageId: string) => Promise<TeamData>;
 }
-
-export type Player = {
-  id: string;
-  nickName: string;
-  photo: string;
-  role: string;
-};
 
 type RoleData = {
   id: string;

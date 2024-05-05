@@ -1,37 +1,12 @@
-import { useQuery } from 'react-query';
 import { HomeTemplate } from '../template/HomeTemplate';
-import { useHome } from '../hooks/useHome';
-import { useStages } from '../hooks/useFetchStage';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
-  const { fetchData, homeData, onClickPlayer } = useHome();
-  const { selectedHomeStage, stages } = useStages();
+  const navigate = useNavigate();
 
-  const week = stages.find((stage) => stage.id === selectedHomeStage);
+  function onClickPlayer(playerId: string) {
+    navigate(`/profile/${playerId}`);
+  }
 
-  const { isLoading } = useQuery(
-    [
-      'bestPlayersAndByTeam',
-      selectedHomeStage /* outros parâmetros necessários */,
-    ],
-    async () => {
-      const result = await fetchData(selectedHomeStage);
-      return result;
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
-
-  return (
-    !isLoading && (
-      <HomeTemplate
-        onClick={onClickPlayer}
-        title="🐐 Goats da semana"
-        subTitle={`🗓️ Nota dos jogadores na semana ${week?.slug}`}
-        bestPlayers={homeData?.bestPlayers}
-        bestPlayersByTeamData={homeData?.bestPlayersByTeamData}
-      />
-    )
-  );
+  return <HomeTemplate onClickPlayer={onClickPlayer} />;
 }

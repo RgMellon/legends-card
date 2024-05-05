@@ -1,10 +1,12 @@
+import { TeamWithPlayer } from '../dtos/response/TeamWithPlayer';
+
 export interface IFetchBestPlayersByTeams {
-  fetch: (stageId: string) => Promise<FetchBestPlayersModel>;
+  fetch: (stageId: string) => Promise<TeamWithPlayer[]>;
 }
 
-export type FetchBestPlayersModel = {
-  teams: Teams[];
-};
+// export type FetchBestPlayersModel = {
+//   teams: Teams[];
+// };
 
 export interface Player {
   id: string;

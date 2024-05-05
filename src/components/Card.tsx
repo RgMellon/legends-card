@@ -1,11 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Player } from '../domain/usecases/FetchBestPlayers';
+import { Player } from '../domain/dtos/response/Player';
 
-type CardProps = Player & {
-  rate: string;
-};
-
-export function Card({ id, nickName, photo, role, rate }: CardProps) {
+export function Card({ id, nickName, photo, role, rate }: Player) {
   const navigate = useNavigate();
 
   const position = {
