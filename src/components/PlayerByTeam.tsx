@@ -14,17 +14,17 @@ export function PlayerByTeam({
   hanldeCallBack,
 }: PlayerByTeamProps) {
   return (
-    <div className="shadow-sm h-full w-full rounded-md p-5 bg-purple-200">
-      <div className="flex items-center mt-4 w-100 justify-between ">
+    <div className="shadow-lg h-full w-full rounded-md p-5 bg-purple-100 relative">
+      <header className="flex items-center mt-4 w-[100%] justify-between absolute left-0 right-0 top-[-16px] p-4 bg-purple-200">
         <img
-          className="object-cover inline-block w-10 h-10 rounded-full ring-1"
+          className="object-cover inline-block w-10 h-10 rounded-full ring-1 ml-2"
           src={teamLogo}
           alt="team-icon"
         />
-        <p>{teamName}</p>
-      </div>
+        <p className="text-md font-bold">{teamName}</p>
+      </header>
 
-      <ul className="list-none mt-10">
+      <ul className="list-none mt-16">
         {players.map((player) => (
           <li
             onClick={() => {

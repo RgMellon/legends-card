@@ -18,7 +18,19 @@ export function SelectStage({
       }}
       id="stage"
       name="stage"
-      className="mt-4 mb-4 rounded-md bg-transparent pl-2 pr-3 text-gray-500 bg-purple-200 ml-7"
+      className="mt-4
+        w-full
+        h-14
+        rounded-md 
+        pl-2
+        pr-3 
+        text-gray-500
+      bg-purple-200 
+        border-yellow
+        border-solid
+        border-opacity-10
+        border-2
+        outline-none"
     >
       {stages.map((stage) => (
         <option
@@ -32,7 +44,7 @@ export function SelectStage({
           key={stage?.id}
           value={stage?.id}
         >
-          {stage.slug}
+          {stage.slug.substring(0, 1).toUpperCase() + stage.slug.substring(1)}
         </option>
       ))}
     </select>

@@ -8,7 +8,13 @@ export function InputThatTriggerModal({ handleToggle }: Props) {
   return (
     <div className="relative">
       <button
-        className="z-50  flex justify-items-start w-full mt-10 h-50 p-4 rounded-md bg-purple-200 border-solid"
+        className="z-50
+         border-yellow
+          border-opacity-10
+          border-2 
+          border-solid
+          h-14
+          flex justify-items-start w-full mt-10 h-50 p-4 rounded-md bg-purple-200"
         onClick={handleToggle}
       >
         <span className="ml-10"> Pesquise um jogador </span>
