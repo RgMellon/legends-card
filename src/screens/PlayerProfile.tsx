@@ -36,7 +36,7 @@ export function PlayerProfile() {
   return (
     !isLoading && (
       <section className="mx-auto max-w-screen-2xl">
-        <div className="w-full flex p-8 mt-2 rounded-md bg-purple-200">
+        <div className="w-full flex p-8 mt-4 rounded-md bg-purple-200">
           <button
             onClick={() => {
               navigate(-1);

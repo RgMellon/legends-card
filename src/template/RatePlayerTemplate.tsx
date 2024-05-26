@@ -31,8 +31,8 @@ export function RatePlayerTemplate() {
 
   return (
     !isLoading && (
-      <div className="mx-auto max-w-screen-2xl">
-        <div className="shadow-sm h-full w-full rounded-md p-5 bg-purple-200 mt-4">
+      <div className="mx-auto max-w-screen-2xl md:max-w-screen-xl">
+        <div className="shadow-sm h-full w-full rounded-md p-5 bg-purple-100 mt-4">
           <h2 className="font-bold text-lg">Nota dos jogadores</h2>
         </div>
 

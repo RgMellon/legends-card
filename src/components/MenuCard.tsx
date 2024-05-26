@@ -18,7 +18,7 @@ export function MenuCard({
   return (
     <button
       onClick={action}
-      className={`bg-purple-200 w-100 h-48 rounded-md text-start p-5 hover:${color} hover:opacity-90 transition duration-300 overflow-hidden`}
+      className={`bg-purple-200 w-100 h-48 rounded-md text-start p-5  hover:opacity-65 transition duration-300 overflow-hidden`}
     >
       <div
         className={`

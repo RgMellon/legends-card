@@ -14,7 +14,7 @@ export function Modal({ children, handleClose }: ModalProps) {
         style={{ backgroundColor: 'rgba(54, 52, 71, 0.8)' }}
       />
 
-      <div className="mx-auto max-w-screen-md absolute top-[30%] left-0 right-0 z-30">
+      <div className="mx-auto max-w-screen-md absolute top-[10%] left-0 right-0 z-30">
         <div className="relative flex flex-col w-full outline-none  rounded-md p-0">
           {children}
         </div>

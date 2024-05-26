@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Banner } from '../components/Banner';
 import { Card } from '../components/Card';
 
@@ -13,11 +14,28 @@ const position = {
 };
 
 export function BestPlayersTemplate() {
+  const navigate = useNavigate();
   const { players: roles, isLoading } = useBestPlayersViewModel();
 
   return (
     !isLoading && (
-      <section className="mx-auto max-w-screen-2xl">
+      <section className="mx-auto max-w-screen-2xl md:max-w-screen-xl">
+        <div className="w-full flex p-8 mt-4 rounded-md bg-purple-200">
+          <button
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <img
+              className="w-5 inline-block mr-4"
+              src="https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/buttons/button-framedarrow.png"
+              alt="button-back"
+            />
+
+            <p className="inline-block">Voltar</p>
+          </button>
+        </div>
+
         <Banner
           title="Melhores jogadores"
           subtitle="Nota de todos jogadores de todas as temporadas e splits"
