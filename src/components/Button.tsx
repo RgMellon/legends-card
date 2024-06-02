@@ -3,14 +3,33 @@ import { ButtonHTMLAttributes } from 'react';
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   loading: boolean;
   title: string;
+  type?: string;
 };
 
-export function Button({ loading = false, title, ...rest }: ButtonProps) {
+export function Button({
+  loading = false,
+  title,
+  type = 'button',
+  ...rest
+}: ButtonProps) {
   return (
     <button
+      className="bg-yellow 
+                  text-white
+                  active:bg-emerald-600 
+                  font-bold uppercase 
+                  text-sm px-6 py-3
+                  rounded
+                  shadow
+                  hover:shadow-lg
+                  outline-none
+                  mr-1
+                  mb-1
+                  ease-linear
+                  transition-all
+                  duration-150"
       {...rest}
-      className="bg-yellow text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-      type="button"
+      type={type}
     >
       {!loading && title}
       {loading && (

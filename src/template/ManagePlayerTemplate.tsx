@@ -5,33 +5,39 @@ import {
   PiPlusCircle,
 } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
-import { players } from '../mock/player';
+// import { players } from '../mock/player';
 import { RightTemplateModal } from '../components/RightTemplateModal';
 
 import { Alert } from '../components/Alert';
-import { useState } from 'react';
+
 import { ChangePlayerOfTeam } from '../components/ChangePlayerOfTeam';
 import { CreatePlayer } from '../components/CreatePlayer';
+import { useManagePlayerViewModel } from '../hooks/viewModel/useManagePlayerViewModel';
+
+let playerId = '';
 
 export function ManagePlayerTemplate() {
   const navigate = useNavigate();
+  const {
+    teams = [],
+    isLoadingTeam,
+    handleToggleModalCreatePlayer,
+    isOpenCreateReplacePlayer,
+    handleToggleModalReplacePlayer,
+    isOpenModalReplacePlayer,
+    showAlert,
+    setShowAlert,
+    handleCreatePlayer,
+    players = [],
+    isLoadingPlayer,
+    handleUpdatePlayerStatus,
+  } = useManagePlayerViewModel();
 
-  const [isOpenModalReplacePlayer, setIsOpenModalReplacePlayer] =
-    useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [isOpenCreateReplacePlayer, setIsOpenCreateReplacePlayer] =
-    useState(false);
+  function handleDesactivePlayer(playerIdParam: string) {
+    console.log(playerIdParam);
+    playerId = playerIdParam;
 
-  function handleToggleModalReplacePlayer() {
-    setIsOpenModalReplacePlayer((old) => !old);
-  }
-
-  function handleToggleModalCreatePlayer() {
-    setIsOpenCreateReplacePlayer((old) => !old);
-  }
-
-  function onConfirmAlert() {
-    setShowAlert(false);
+    setShowAlert(true);
   }
 
   return (
@@ -93,41 +99,52 @@ export function ManagePlayerTemplate() {
 
           <div className="h-2"></div>
 
-          <tbody className="bg-purple-200">
-            {players.map((player, index) => (
-              <tr key={index}>
-                <td className="flex items-center p-4 w-[25%]">
-                  <img
-                    className="object-cover w-8 h-8 rounded-full ring-1"
-                    src={player.photo}
-                    alt="player-icon"
-                  />
-                  <p className="ml-4">{player.nickName}</p>
-                </td>
-                <td className="text-left w-[25%]">Loud</td>
-                <td className="text-left w-[25%]">{player.role}</td>
-                <td className="text-left w-[25%]">
-                  <button
-                    className="px-3"
-                    title="Trocar jogador de time"
-                    onClick={handleToggleModalReplacePlayer}
-                  >
-                    <PiArrowArcRight size={'18px'} color="#1fb6ff" />
-                  </button>
+          {!isLoadingPlayer && (
+            <tbody className="bg-purple-200">
+              {players.map((player, index) => (
+                <tr key={index}>
+                  <td className="flex items-center p-4 w-[25%]">
+                    <img
+                      className="object-cover w-8 h-8 rounded-full ring-1"
+                      src={player.photo}
+                      alt="player-icon"
+                    />
+                    <p className="ml-4">{player.nickName}</p>
+                  </td>
+                  <td className="text-left w-[25%]">
+                    <div className="flex items-center">
+                      <img
+                        className="object-cover w-8 h-8 rounded-full ring-1"
+                        src={player.team.logo}
+                        alt="player-icon"
+                      />
+                      <p className="ml-2 text-sm">{player.team.name}</p>
+                    </div>
+                  </td>
+                  <td className="text-left w-[25%]">{player.role}</td>
+                  <td className="text-left w-[25%]">
+                    <button
+                      className="px-3"
+                      title="Trocar jogador de time"
+                      onClick={handleToggleModalReplacePlayer}
+                    >
+                      <PiArrowArcRight size={'18px'} color="#1fb6ff" />
+                    </button>
 
-                  <button
-                    className="text-white py-1 px-3 rounded"
-                    title="Desativar jogador"
-                    onClick={() => {
-                      setShowAlert(true);
-                    }}
-                  >
-                    <PiUserCircleMinus size={'18px'} color="#ff7849" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                    <button
+                      className="text-white py-1 px-3 rounded"
+                      title="Desativar jogador"
+                      onClick={() => {
+                        handleDesactivePlayer(player.id);
+                      }}
+                    >
+                      <PiUserCircleMinus size={'18px'} color="#ff7849" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </section>
 
@@ -142,7 +159,11 @@ export function ManagePlayerTemplate() {
         isOpen={isOpenCreateReplacePlayer}
         handleToggle={handleToggleModalCreatePlayer}
       >
-        <CreatePlayer />
+        <CreatePlayer
+          allTeams={teams}
+          isLoadingTeam={isLoadingTeam}
+          handleCreatePlayer={handleCreatePlayer}
+        />
       </RightTemplateModal>
 
       {showAlert && (
@@ -152,7 +173,9 @@ export function ManagePlayerTemplate() {
           onCancel={() => {
             setShowAlert(false);
           }}
-          onConfirm={onConfirmAlert}
+          onConfirm={() => {
+            handleUpdatePlayerStatus(playerId);
+          }}
         />
       )}
     </section>
