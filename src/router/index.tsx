@@ -5,6 +5,7 @@ import { RatePlayer } from '../screens/admin/RatePlayer';
 import { Dashboard } from '../screens/admin/Dashboard';
 import { BestPlayers } from '../screens/BestPlayers';
 import { ManagePlayer } from '../screens/admin/ManagePlayer';
+import { CreateWeek } from '../screens/admin/CreateWeek';
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,12 @@ export const router = createBrowserRouter([
     path: '/profile/:id',
     element: <PlayerProfile />,
   },
+
+  {
+    path: 'admin/create/week',
+    element: <CreateWeek />,
+  },
+
   {
     path: 'admin/rate/player',
     element: <RatePlayer />,

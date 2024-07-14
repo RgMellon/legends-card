@@ -4,11 +4,13 @@ import { PlayerTableTr } from './PlayerTableTr';
 type PlayerTableProps = {
   players: Player[];
   handlePlayerCallback: (playerId: string, playerName: string) => void;
+  handleShowDetails: () => void;
 };
 
 export function PlayerTable({
   players,
   handlePlayerCallback,
+  handleShowDetails,
 }: PlayerTableProps) {
   return (
     <table className="table-auto w-full">
@@ -27,6 +29,7 @@ export function PlayerTable({
             player={player}
             handlePlayerCallback={handlePlayerCallback}
             index={index}
+            handleShowDetails={handleShowDetails}
           />
         ))}
       </tbody>

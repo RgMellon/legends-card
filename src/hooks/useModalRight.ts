@@ -1,9 +1,18 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 
-import { ModalRightContext } from '../contexts/ModaRightContext';
+import { useState } from 'react';
+
+// import { ModalRightContext } from '../contexts/ModaRightContext';
 
 export function useModalRight() {
-  const context = useContext(ModalRightContext);
+  const [isOpenModalRight, setIsOpenModalRight] = useState(false);
 
-  return context;
+  function handleToggleModalRight() {
+    setIsOpenModalRight((old) => !old);
+  }
+
+  return {
+    isOpenModalRight,
+    handleToggleModalRight,
+  };
 }

@@ -155,6 +155,7 @@ export function CreatePlayer({
             <option value="ADC">ADC</option>
             <option value="SUP">SUP</option>
             <option value="JG">JG</option>
+            <option value="TOP">TOP</option>
           </select>
         </div>
 

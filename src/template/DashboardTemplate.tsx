@@ -25,9 +25,9 @@ export function DashboardTemplate() {
         <MenuCard
           color="bg-yellow"
           title="Criar semana / Rodada"
-          subtitle="Crie a semana para cadastrar o usuário"
+          subtitle="Adicione a semana que aconteceu o jogo, para poder atribuir as notas do jogador na semana"
           action={() => {
-            alert('oi');
+            navigate('/admin/create/week');
           }}
           icon={<PiCalendarPlusThin size={24} />}
         />

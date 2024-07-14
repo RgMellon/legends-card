@@ -1,20 +1,21 @@
 import { Player } from '../domain/usecases/FetchAllPlayers';
 import { PiCheckCircle, PiXCircle, PiEyeLight, PiPencil } from 'react-icons/pi';
-import { useModalRight } from '../hooks/useModalRight';
+
 import { useSelectedPlayer } from '../hooks/useSelectedPlayer';
 
 type PlayerTableTrProps = {
   handlePlayerCallback: (playerId: string, playerName: string) => void;
   player: Player;
   index: number;
+  handleShowDetails: () => void;
 };
 
 export function PlayerTableTr({
   handlePlayerCallback,
   player,
   index,
+  handleShowDetails,
 }: PlayerTableTrProps) {
-  const { handleToggle } = useModalRight();
   const { handleSelect } = useSelectedPlayer();
 
   function handleOnClick(playerId: string, playerNickName: string) {
@@ -22,8 +23,8 @@ export function PlayerTableTr({
   }
 
   function handleDetail() {
-    handleToggle();
     handleSelect(player);
+    handleShowDetails();
   }
 
   const hasRate = player.hasRateInThisWeek ? (

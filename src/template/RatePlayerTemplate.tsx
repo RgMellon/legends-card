@@ -6,6 +6,7 @@ import { PlayerTable } from '../components/PlayerTable';
 import { useRatePlayerViewModel } from '../hooks/viewModel/useRatePlayerViewModel';
 import { RightTemplateModal } from '../components/RightTemplateModal';
 import { RatePlayerModalRightContent } from '../components/RatePlayerModalRightContent';
+import { useModalRight } from '../hooks/useModalRight';
 
 let currentPlayerId: string;
 let currentPlayerName: string;
@@ -22,6 +23,8 @@ export function RatePlayerTemplate() {
     loadRegister,
     onRegisterRate,
   } = useRatePlayerViewModel();
+
+  const { handleToggleModalRight, isOpenModalRight } = useModalRight();
 
   function handlePlayerCallback(playerId: string, playerName: string) {
     currentPlayerId = playerId;
@@ -82,6 +85,7 @@ export function RatePlayerTemplate() {
             <PlayerTable
               players={players}
               handlePlayerCallback={handlePlayerCallback}
+              handleShowDetails={handleToggleModalRight}
             />
           </div>
         </section>
@@ -153,7 +157,10 @@ export function RatePlayerTemplate() {
           </>
         )}
 
-        <RightTemplateModal>
+        <RightTemplateModal
+          isOpen={isOpenModalRight}
+          handleToggle={handleToggleModalRight}
+        >
           <RatePlayerModalRightContent />
         </RightTemplateModal>
       </div>

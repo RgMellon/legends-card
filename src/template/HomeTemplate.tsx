@@ -76,30 +76,50 @@ export function HomeTemplate({ onClickPlayer }: HomeTemplateProps) {
             </div>
           </section>
 
-          <div
-            className="shadow-sm flex items-center rounded-md  mt-8 justify-between "
-            style={{ backgroundColor: 'rgba(54, 52, 71, 0.8)' }}
-          >
-            <h2 className="font-bold text-2xl ml-8">
-              Melhores Jogadores da semana
-            </h2>
+          {homeData.playersByTeams?.length == 0 ? (
+            <section className="w-full h-svh flex flex-col justify-center items-center  ">
+              <div
+                className="bg-yellow rounded-full rotate-45"
+                style={{ backgroundColor: 'rgba(54, 52, 71, 0.3)' }}
+              >
+                <img
+                  src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d099d316-98cf-4095-a2f9-32cca4219baa/da4be2i-f75637af-3bef-4f9f-9a88-d39c216497cc.png/v1/fill/w_933,h_717/_league_of_legends__blood_moon_kennen__render__by_popokupingupop90_da4be2i-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE3IiwicGF0aCI6IlwvZlwvZDA5OWQzMTYtOThjZi00MDk1LWEyZjktMzJjY2E0MjE5YmFhXC9kYTRiZTJpLWY3NTYzN2FmLTNiZWYtNGY5Zi05YTg4LWQzOWMyMTY0OTdjYy5wbmciLCJ3aWR0aCI6Ijw9OTMzIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.T1lVG4L4fPVFF3RwDbbsEg7GnRWwKZwLUEor4ZK2HE0"
+                  alt=""
+                  className="w-96 object-contain -rotate-45"
+                />
+              </div>
+              <h4 className="mt-20 font-bold text-1xl">
+                Jogadores ainda não cadastrados nessa semana
+              </h4>
+            </section>
+          ) : (
+            <>
+              <div
+                className="shadow-sm flex items-center rounded-md  mt-8 justify-between "
+                style={{ backgroundColor: 'rgba(54, 52, 71, 0.8)' }}
+              >
+                <h2 className="font-bold text-2xl ml-8">
+                  Melhores Jogadores da semana
+                </h2>
 
-            <div className="">
-              <img
-                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d099d316-98cf-4095-a2f9-32cca4219baa/da3sj5y-114e591e-bd46-48e8-bb6d-cc7fdc0b344a.png/v1/fill/w_1024,h_718/_league_of_legends__classic_azir__render__by_popokupingupop90_da3sj5y-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE4IiwicGF0aCI6IlwvZlwvZDA5OWQzMTYtOThjZi00MDk1LWEyZjktMzJjY2E0MjE5YmFhXC9kYTNzajV5LTExNGU1OTFlLWJkNDYtNDhlOC1iYjZkLWNjN2ZkYzBiMzQ0YS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.ff_bTd1gY1R4a-bV7DSDJFdbgxaAFHI4cYKg8SlnjnY"
-                alt=""
-                className="w-56 right-0"
+                <div className="">
+                  <img
+                    src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d099d316-98cf-4095-a2f9-32cca4219baa/da3sj5y-114e591e-bd46-48e8-bb6d-cc7fdc0b344a.png/v1/fill/w_1024,h_718/_league_of_legends__classic_azir__render__by_popokupingupop90_da3sj5y-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzE4IiwicGF0aCI6IlwvZlwvZDA5OWQzMTYtOThjZi00MDk1LWEyZjktMzJjY2E0MjE5YmFhXC9kYTNzajV5LTExNGU1OTFlLWJkNDYtNDhlOC1iYjZkLWNjN2ZkYzBiMzQ0YS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.ff_bTd1gY1R4a-bV7DSDJFdbgxaAFHI4cYKg8SlnjnY"
+                    alt=""
+                    className="w-56 right-0"
+                  />
+                </div>
+              </div>
+
+              <BestPlayerList bestPlayers={homeData.bestPlayers} />
+
+              <PlayersByTeamList
+                week={week?.slug || ''}
+                playersByTeams={homeData.playersByTeams}
+                onClickPlayer={onClickPlayer}
               />
-            </div>
-          </div>
-
-          <BestPlayerList bestPlayers={homeData.bestPlayers} />
-
-          <PlayersByTeamList
-            week={week?.slug || ''}
-            playersByTeams={homeData.playersByTeams}
-            onClickPlayer={onClickPlayer}
-          />
+            </>
+          )}
         </div>
 
         {showModal && (
